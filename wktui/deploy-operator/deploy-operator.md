@@ -21,52 +21,74 @@ In this lab, you will:
 ## Task 1: Configure kubectl (Kubernetes Cluster CLI) to connect to Oracle Kubernetes Cluster
 In this Task, we creats the configuration file *.oci/config* and *.kube/config* in */home/opc* directory. This configuration file allow us to access Oracle Kubernetes Cluster (OKE) from this virtual machine.
 
-1. In the Console, select the *Hamburger Menu* -> *Developer Services* -> *Kubernetes Clusters (OKE)* as shown.
-    ![OKE Icon](images/OKEIcon.png)
+1. In chrome browser inside the noVNC remote desktop, open the URL: [https://cloud.oracle.com/](https://cloud.oracle.com/). Enter your tenancy name as *Cloud Account Name*.
+    ![Login Console](images/26.png)
 
-2. Click *Access Cluster*. 
-    ![Access Cluster](images/AccessCluster.png)
+2. In Single Sign on page, Click *Continue*.
+    ![SSO](images/27.png)
 
+3. From text file, copy your luna username and password and paste here then click *Sign In*.
+    ![Sign In](images/28.png)
 
-3. Select *Local Access* and then click on *Copy* as shown.
-    ![Local Access](images/LocalAccess.png)
+4. Click *User Icon* -> *User Settings*.    
+    ![User Settings](images/29.png)
 
-4. Go back to terminal, Click on *Activities* and select the *Terminal*.
-    ![Terminal](images/Terminal.png)
+5. Scroll down, Click *API Keys* and then click *Add API Key*.
+    ![Add key](images/30.png)
 
-5. Paste the copied command in the terminal. For *Do you want to create a new config file?*, Type *y* then press *Enter*. For *Do you want to create your config file by logging in through a browser?*, Type *y* then press *Enter*.
-    ![OCI Config](images/OCIConfig.png)
+6. Select *Generate API Key Pair* and then Click *Download Private Key*, *Download Public Key* and *Add* as shown.
+    ![Download key](images/31.png)
 
-6. In Chrome Browser, Click *Accept all*.
-    ![Accept Cache](images/AcceptCache.png)
+7. Click *Copy* and Paste the content of this in text file.
+    ![Copy OCI Config](images/32.png)
 
-7. Enter your tenancy name and click *Continue*.
-    ![Tenancy Name](images/TenancyName.png)
+8. Find out the location of Private key and paste it in your text file. It should be something like `~/Downloads/oracle--`.
 
-8. Enter your Cloud account Username and Password and then click *Sign In*.
-    ![Cloud Credential](images/CloudCredential.png)
-    > You will see *Authorization Completed* as shown.
-    ![Authorization Complete](images/AuthorizationComplete.png)
+9. Click *Activities* and select Terminal, then click *File* -> *New Tab*. 
+    ![New Tab](images/33.png)
 
-9. In *Enter a passphrase for your private key*, leave it empty and press *Enter*.
-    ![Empty Passphrase](images/EmptyPassphrase.png)
+10. Copy and paste the following command in your new tab as shown.
+    ```bash
+    <copy>mkdir .oci
+    vi ~/.oci/config</copy>
+    ```
+    ![Create Config](images/34.png)
 
-10. Use the upper arrow key to run the *oce ce ...* command again and re-run it multiple time, until you see the *New config written to the Kubeconfig file /home/opc/.kube/config*.
-    ![Create KubeConfig](images/CreateKubeconfig.png)
+11. In your text file, fill the value of *key_file* with location of private key and then copy the content and paste it in *.oci/config* file as shown.
+   ![OCI Config](images/35.png)
 
+12. Copy and paste the following command to change the permission of *oci/config* and *private key* file
 
+    ```bash
+    <copy>chmod 600 .oci/config ~/Downloads/<your_private_key_name></copy>
+    ```
+    ![Change permission](images/40.png)
+
+13. In Cloud console, Click *Hamburger menu* -> *Developer Services* -> *Kubernetes Clusters (OKE)*.
+    ![OKE](images/36.png)
+
+14. Select the correct compartment name and then click *cluster1*. 
+    ![Select cluster](images/37.png)
+
+15. Click *Access Cluster*.
+    ![Access Cluster](images/38.png)
+
+16. Select *Local Access* and Copy the *VCN-Native Public endpoint* as shown.
+    ![Copy Config](images/39.png)
+
+17. Paste this command in terminal as shown.
+    ![Kube Config](images/41.png)
+
+    > It creates the *.kube/config* file.
 
 ## Task 2: Verify Connectivity of WebLogic Kubernetes Toolkit UI to Oracle Kubernetes Cluster
 In this task, we verify the connectivity to *Oracle Kubernetes Cluster(OKE)* from the `WebLogic Kubernetes Toolkit UI` application.
 
-1. Go back to WebLogic Kubernetes Tool Kit UI, Click *Activities* and select the WebLogic Kubernetes Tool Kit UI window. 
-    ![Client Configuration](images/ClientConfiguration.png)
+1. Go back to WebLogic Kubernetes Tool Kit UI, click  *Kubernetes* ->  *Client Configuration* and then click *Verify Connectivity*.
+    ![Verify Connectivity](images/42.png)
 
-2. Click  *Kubernetes* ->  *Client Configuration* and then click *Verify Connectivity*.
-    ![Verify Connectivity](images/VerifyConnectivity.png)
-
-3. Once you see *Verify Kubernetes Client Connectivity Success* window, Click *Ok*.
-    ![Successfully Connected](images/SuccessfullyConnected.png)
+2. Once you see *Verify Kubernetes Client Connectivity Success* window, Click *Ok*.
+    ![Successfully Connected](images/43.png)
 
 ## Task 3: Install the WebLogic Kubernetes Operator to Oracle Kubernetes Cluster
 This section provides support for installing the WebLogic Kubernetes Operator (the “operator”) in the target Kubernetes cluster. 
@@ -77,25 +99,10 @@ This section provides support for installing the WebLogic Kubernetes Operator (t
     **Kubernetes Service Account** - The Kubernetes service account for the operator to use when making Kubernetes API requests. Leave the default value.<br>
     **Helm Release Name to Use for Operator Installation** - The Helm release name to use to identify this installation. Leave the default value.<br>
 
-    ![WebLogic Operatotr](images/WebLogicOperator.png) 
+    ![WebLogic Operatotr](images/44.png) 
     
-    > **For your information only:**<br>
-    > !By default, the operator’s *Image Tag to Use* field is set to the image tag corresponding to the latest operator release version on the GitHub Container Registry.<br>
-    > The operator needs to know which WebLogic domains in the Kubernetes cluster that it will manage. It does this at the Kubernetes namespace level, so any WebLogic domain in a Kubernetes namespace the operator is configured to manage, will be managed by the operator instance being installed.<br>
-    > For *Kubernetes Namespace Selection Strategy* field, we select *Label Selector*, which means any Kubernetes namespace with a *weblogic-operator=enabled* label will be managed by this operator.<br>
-    ![Operator Image](images/OperatorImage.png)
-   
-    > By enabling Enable Cluster Role Binding, the operator installation will create a Kubernetes ClusterRole and ClusterRoleBinding that the operator will use for all managed namespaces.<br>
-    > By default, the operator’s REST API is not exposed outside the Kubernetes cluster. To enable the REST API to be exposed, you can enable *Expose REST API Externally*.
-    [Role Binding](images/RoleBinding.png)<br>
-    
-    > This pane lets you override the operator’s Java logging configuration, which can be useful when debugging issues with the operator.<br>
-    ![Java Logging](images/JavaLogging.png)<br>
-   
-    > For more information on *WebLogic Kubernetes Operator Image*, *Kubernetes Namespace Selection Strategy*, *WebLogic Kubernetes Role Bindings*, *External REST API Access*, *Third Party Integrations* and *Java Logging*, see the [WebLogic Kubernetes Operator](https://oracle.github.io/weblogic-toolkit-ui/navigate/kubernetes/k8s-wko/) documentation.
-
 2. Once you see *WebLogic Kubernetes Operator Installation Complete*, Click *Ok*.
-    ![Operator Installed](images/OperatorInstalled.png)
+    ![Operator Installed](images/45.png)
 
 ## Acknowledgements
 

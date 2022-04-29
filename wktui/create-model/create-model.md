@@ -17,20 +17,37 @@ In this lab, you will:
 * You must have Text Editor.
 * Chrome or Firefox browser.
 
-## Task 1: Explore on-premise domain
+## Task 1:  Start Admin Server and Explore on-premise domain
 
-In this task, we navigate through the resources using WebLogic Administration console.
+In this task, we start the Admin Server and navigate through the resources using WebLogic Administration console.
 
-1. Enter *weblogic/Welcome1%* as `Username/Password`, then click *Login*. You can see, we have WebLogic Server version *12.2.1.3.0*.   
+1. Click *Activities* and select the icon for *Terminal* as shown.
+        ![Open Terminal](images/18.png)
+
+2. Copy and paste the following command to start the Admin Server.
+        ```bash
+        <copy>cd ~/Oracle/Middleware/Oracle_Home/user_projects/domains/test_domain/
+        ./startWebLogic.sh</copy>
+        ```
+        ![Start Server](images/19.png)
+
+3. Click *Activities* -> *icon for Chrome browser* and copy and paste the following url:
+        ```bash
+        <copy>http://localhost:7001/console/login/LoginForm.jsp</copy>
+        ```
+        ![Open Chrome](images/20.png)
+        ![Admin Console](images/21.png)
+
+4. Enter *weblogic/Welcome1%* as `Username/Password`, then click *Login*. You can see, we have WebLogic Server version *12.2.1.3.0*.   
     ![Login Admin Console](images/1.png)
 
-2. To view available servers, expand *Environment* and click *Servers*. You can see, we have one dynamic clusters with 5 managed servers. 
+5. To view available servers, expand *Environment* and click *Servers*. You can see, we have one dynamic clusters with 5 managed servers. 
     ![View Servers](images/2.png)
 
-3. To view the datasources, expand *Services* and click *Data Sources*.
+6. To view the datasources, expand *Services* and click *Data Sources*.
     ![View Datasources](images/4.png)
 
-4. To view the deployed application, click *Deployment*. You can see, we have *opdemo* as deployed application.
+7. To view the deployed application, click *Deployment*. You can see, we have *opdemo* as deployed application.
     ![View Deployments](images/3.png)
 
 ## Task 2: Opening the base WKT UI Project
@@ -46,22 +63,11 @@ For simplicity of lab, we created *`base_project.wktproj`*, which preset the loc
 3. To open *base_project.wktproj* project, click *File* -> *Open Project*. 
     ![Open Project](images/7.png)
 
-4. Click *Downloads* in left side, then choose *base_project.wktproj* and click *Open Project*.
+4. Select the *base_project.wktproj* inside the *Downloads* folder and then click *Open Project*.
     ![Project Location](images/8.png)
 
 5. Enter *welcome1* as password and then click *Unlock*.
     ![Open WKTUI](images/9.png)
-
-    > **For your information only:**<br>
-    > As *Credential Story Policy*, we select **Store in Native OS Credentials Store**. It means the credentials (like for WebLogic Server and datasources) are only stored on the local machine.<br>
-    > For *Where would you like the target Oracle Fusion Middleware domain to live?*, we select **Created in the container from the model in the image**. In this case, the set of model-related files are added to the image. So when the WebLogic Kubernetes Operator domain object is deployed, its inspector process runs and creates the WebLogic Server domain inside a running container on-the-fly.<br>
-    ![Project Settings](images/ProjectSettings.png)
-    > As *Kubernetes Environment Target Type*, we select **WebLogic Kubernetes Operator**. This means, you want this domain to be deployed in Kubernetes managed by the WebLogic Kubernetes Operator. This settings also determine what sections and their associated actions within the application, to display.<br>
-    > we also specify the location for *JAVA HOME* and *ORACLE_HOME*. WebLogic Kubernetes Toolkit UI uses this directory when invoking the WebLogic Deployer Tooling and WebLogic Image Tool. <br>
-    > To build new images, inspect images and interact with image repositories, the WKT UI application uses an image build tool, which defaults to docker.<br>
-    ![Kubernetes Cluster Type](images/KubernetesClusterType.png)
-    ![Software Locations](images/SoftwareLocations.png)
-
 
 ## Task 3: Introspection of an Offline on-premise domain 
 
@@ -99,13 +105,7 @@ In this task, we validate the model and prepare the model to be deployed on Orac
 3. To prepare the model, to be deployed on Kubernetes cluster, click *Prepare Model*
     ![Prepare Model](images/15.png)
     > **For your information only:**<br>
-    > Prepare model invokes the WDT [Prepare Model Tool](https://oracle.github.io/weblogic-deploy-tooling/userguide/tools/prepare/) to modify the model to work in a Kubernetes cluster with WebLogic Kubernetes Operator or Verrazzano installed.<br>
-    > Prepare Model does the following:
-    * Removes model sections and fields that are not compatible with the target environment.
-    * Replaces endpoint values with model tokens that reference variables.
-    * Replaces credential values with model tokens that reference either a field in a Kubernetes secret or a variable.
-    * Provides default values for fields displayed in the application’s variable, variable overrides, and secret editors.
-    * Extracts topology information to the application that it uses to generate the resource file used to deploy the domain.
+    > Prepare model invokes the WDT [Prepare Model Tool](https://oracle.github.io/weblogic-deploy-tooling/userguide/tools/prepare/) to modify the model to work in a Kubernetes cluster with WebLogic Kubernetes Operator or Verrazzano installed.
 
 4. Once you see *Prepare Model Complete* window,click *Ok*.
     ![Prepare Complete](images/16.png)

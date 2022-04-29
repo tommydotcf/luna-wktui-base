@@ -28,7 +28,7 @@ This lab requires the following:
 1. In Luna Desktop, Click *Luna Lab*.
   ![Luna Lab](images/1.png)
 
-2. In text editor, create a text file and copy the following field and paste it in text file:
+2. Outside the Luna, create a text file and copy and paste the following field in it:
 
     ```bash
     <copy>Luna Environment Details:
@@ -72,7 +72,7 @@ This lab requires the following:
     ![Copy Namespace](images/8.png)
     > This is your tenancy namespace.
 
-3. Enter *test-model-YourFirstName* as Repository name and select *Public* as access, then click *Create repository*.
+3. Enter *test-model-YourFirstName* as Repository name and select *Public* as `Access`, then click *Create repository*.
     ![Create repository](images/9.png)
 
     > Please replace *YourFirstName* with your firstname and make repository name specific.
@@ -111,7 +111,7 @@ We will use WebLogic Server 12.2.1.3.0 image as our Primary Image. So, to get ac
     > Example are for your referency only. As in Luna, environment is temporary, so these data will not work.
 
 
-## Task 5: Open noVNC remote desktop outside the Luna Environment.
+## Task 5: Open noVNC remote desktop inside the Luna Environment.
 
 1. In Cloud console, Click *Hamburger menu* -> *Compute* -> *Instances*.
     ![Compute Instance](images/14.png)
@@ -119,33 +119,20 @@ We will use WebLogic Server 12.2.1.3.0 image as our Primary Image. So, to get ac
 2. Copy the *Public IP* for *weblogic* instance and paste it in text file.
     ![Copy IP](images/15.png)
 
-3. Copy and paste the following URL and replace *XX.XX.XX.XX* with *Public IP* which you got in last step.
+3. Click *Applications* -> *Internet* -> *TigerVNC Viewer*.
+    ![VNC Viewer](images/27.png)
+
+4. Copy the following and replace *XX.XX.XX.XX* with your Public IP and then click on *Connect*.
     ```bash
-    <copy>http://XX.XX.XX.XX:6080/vnc.html?password=LiveLabs.Rocks_99&resize=scale&quality=9&autoconnect=true&reconnect=true</copy>
+    <copy>XX.XX.XX.XX::5901</copy>
+    ``` 
+    ![Connect VNC](images/28.png)
+
+5. Copy and paste the following password and then click on *OK*.
+    ```bash
+    <copy>LiveLabs.Rocks_99</copy>
     ```
-    ![Replace URL](images/16.png)
-    > For better visibilty, please open the URL outside the Luna Environment.
-
-4. In noVNC remote desktop, Click *Activities* and then click *Icon for Text editor* as shown.
-    ![Open editor](images/23.png)
-
-5. Open the clipboard as shown, Copy the content of text file, which you prepared in last task and paste it in clipboard.
-    ![Paste Clipboard](images/24.png)
-
-6. Paste the content in *Untitled Document 1* inside the text editor as shown below.
-    ![Paste file](images/25.png)
-
-7. To open the terminal, Click *Activities* and then click *Icon for terminal* as shown.
-    ![Open Terminal](images/17.png)
-
-8. Copy and paste the following command in terminal and run it.
-    ![Setup Env](images/18.png)
-
-    > This open a workshop document on left side and one browser window on right side. It also start the admin server in test domain.
-
-9. Now you have both workshop document and remote desktop. So follow the document inside the remote desktop.
-    ![Move to Desktop](images/19.png)
-    
+    ![Enter Password](images/29.png)
 ## Acknowledgements
 
 * **Author** -  Ankit Pandey
