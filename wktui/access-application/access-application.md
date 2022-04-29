@@ -31,47 +31,50 @@ In this lab, you will:
 
 ### Prerequisites
 
-* Access to noVNC Remote Desktop created in lab 1.
 * You should have a text editor.
 
 ## Task 1: Access the Application through the Browser
 
 In this task, we access the *opdemo* application. We click on refresh icon to make multiple request to application, to verify loadbalancing between two managed server pods.
 
-1. Copy the below URL and replace *XX.XX.XX.XX* with your IP, which you noted down in last lab. You can see the below output.
+1. Click the URL for *opdemo*.
+    ![Open Application](images/63.png)
+
+
+2. Append *?dsname=testDatasource* as shown below.If you click on Refresh icon, You can see load balancing between two managed server pods.
     ```bash
-    <copy>http://XX.XX.XX.XX/opdemo/?dsname=testDatasource</copy>
+    <copy>?dsname=testDatasource</copy>
     ```
-    ![Open Application](images/OpenApplication.png)
-
-
-2. If you click on Refresh icon, You can see load balancing between two managed server pods.
-    ![Show Loadbalancing](images/ShowLoadbalancing.png)
-
+    ![Show Loadbalancing](images/64.png)
+    ![Show Loadbalancing](images/65.png)
+    > Please copy the IP and paste it in text file.
 
 ## Task 2: Explore WebLogic Domain on Kubernetes Cluster using WebLogic Remote Console
 
 In this task, we explore the WebLogic Remote Console. We create connection to *Admin Server* in Remote Console and verify the resources in WebLogic Domain. This verifies the successful migration of an on-premise domain into the Oracle Kubernetes Cluster. 
 
 1. To open WebLogic Remote Console, Click on *Activities*, then select the *WebLogic Remote Console* Icon.
-    ![Open Remote Console](images/openremoteconsole.png)
+    ![Open Remote Console](images/66.png)
 
-2. Click on `Three dots` under *Kiosk* and Select *Add Admin Server Connection Provider* and click *Choose*.
-    ![Admin Server Connection](images/adminserverconnection.png)
+2. Click on `Three dots` under *Kiosk* and then click *Add Admin Server Connection Provider*.
+    ![Admin Server Connection](images/67.png)
 
 3. Enter the following data and click *OK*.<br>
-    Connection Provider Name: Admin<br> Server<br>
+    Connection Provider Name: KubernetesEnv<br>
     Username: weblogic<br>
     Password: welcome1<br>
-    URL:  `Copy_IP_From_TextEditor`</br>
-    ![Connection Details](images/ConnectionDetails.png)
+    URL:  `Copy_IP_From_TextFile`</br>
+    ![Connection Details](images/68.png)
 
-4. Click on *Edit Tree* icon, then Select *Services* -> *JDBC System Resources*. You can observe the same Datasouce, which we had seen in on-premise domain.
-    ![Verify Datasources](images/VerifyDatasources.png)
+4. Click on *Edit Tree* icon, then Select *Deployments* -> *App Deployments*. You can observe the same *opdemo* application, which we had seen in on-premise domain.
+    ![Verify Datasources](images/69.png)
 
-5. Click on *Monitoring Tree* Icon as shown then select *Running Servers*. You can see we have *Admin Server* and 2 Managed Server pods are running. If you use *Scroll* Button in down side, you can see WebLogic Versin is *12.2.1.3.0*.
-    ![Running Servers](images/RunningServers.png)
-    ![WebLogic Version](images/WebLogicVersion.png)
+5. Click on *Edit Tree* icon, then Select *Services* -> *JDBC System Resources*. You can observe the same Datasouce, which we had seen in on-premise domain.
+    ![Verify Datasources](images/70.png)
+
+6. Click on *Monitoring Tree* Icon as shown then select *Running Servers*. You can see we have *Admin Server* and 2 Managed Server pods are running. Click on *admin-server*, you can see WebLogic Versin is *12.2.1.3.0*.
+    ![Running Servers](images/71.png)
+    
 
 
 ## Acknowledgements
