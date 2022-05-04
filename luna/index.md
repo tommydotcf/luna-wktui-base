@@ -134,6 +134,7 @@ We will use WebLogic Server 12.2.1.3.0 image as our Primary Image. So, to get ac
 2. Copy the **Public IP** for **weblogic** instance and paste it in text file.
  
     ![Copy IP](images1/15.png)
+    > If you don't see any instance, then please wait until you see **weblogic** instance. Keep refreshing the window.
 
 3. Click **Applications** -> **Internet** -> **TigerVNC Viewer**.
  
@@ -463,6 +464,7 @@ Create the configuration file **.oci/config** and **.kube/config** in **/home/op
 
 11. In your text file, fill the value of **key_file** with location of private key and then copy the content and paste it in **.oci/config** file as shown.
    ![OCI Config](images4/35.png)
+   > Enter **i** to get into insert mode and once you copied the text, then click **escape** key and then **:wq** to save the file.
 
 12. Copy and paste the following command to change the permission of **oci/config** and **private key** file
 
@@ -764,13 +766,13 @@ The WebLogic Remote Console is fully supported with WebLogic Server 12.2.1.3, 12
     URL:  `Copy_IP_From_TextFile`</br>
     ![Connection Details](images7/68.png)
 
-4. Click on **Edit Tree** icon, then Select **Deployments** -> **App Deployments**. You can observe the same **opdemo** application, which we had seen in on-premise domain.
+4. Click on **Configuration Tree** icon, then Select **Deployments** -> **App Deployments**. You can observe the same **opdemo** application, which we had seen in on-premise domain.
     ![Verify Datasources](images7/69.png)
 
-5. Click on **Edit Tree** icon, then Select **Services** -> **JDBC System Resources**. You can observe the same Datasouce, which we had seen in on-premise domain.
+5. Click on **Configuration Tree** icon, then Select **Services** -> **JDBC System Resources**. You can observe the same Datasouce, which we had seen in on-premise domain.
     ![Verify Datasources](images7/70.png)
 
-6. Click on **Monitoring Tree** Icon as shown then select **Running Servers**. You can see we have **Admin Server** and 2 Managed Server pods are running. Click on **admin-server**, you can see WebLogic Versin is **12.2.1.3.0**.
+6. Click on **Monitoring Tree** Icon as shown then select **Running Servers**. You can see we have **Admin Server** and 2 Managed Server pods are running. Click on **admin-server**, you can see WebLogic Version is **12.2.1.3.0**.
     ![Running Servers](images7/71.png)
     > Leave this page open in WebLogic Remote Console.
     
@@ -852,7 +854,7 @@ To modify the primary image, we use WebLogic Server Image with **12.2.1.4-slim-o
     ![Update Primary Image Tag](images9/76.png)
 
 
-1. Update a deployed application by a rolling restart of the server pods
+2. Update a deployed application by a rolling restart of the server pods
 
    Click **WebLogic Domain** -> **Deploy Domain**. This will re-deploy the domain.
     ![Redeploy Domain](images9/77.png)
@@ -860,16 +862,16 @@ To modify the primary image, we use WebLogic Server Image with **12.2.1.4-slim-o
     > **For your information only:**<br>
     > As we changed our primary image, so we will notice rolling restart of the servers one by one. As you click on **Deploy Domain**, it start an **Introspector job**, which terminates the running admin server pods, and creates a new pod for admin server which uses WebLogic Server 12.2.1.4.0 image. Introspector do the same process with both the managed servers.
 
-2. Once you see **WebLogic Domain Deployment to Kubernetes Complete** window, Click **Ok**.
+3. Once you see **WebLogic Domain Deployment to Kubernetes Complete** window, Click **Ok**.
 
-3. Go back to **Terminal** and copy the below command and paste in terminal. You will notice rolling restart of servers one by one. First, Admin Server pods terminates and comes in **Running** state.
+4. Go back to **Terminal** and copy the below command and paste in terminal. You will notice rolling restart of servers one by one. First, Admin Server pods terminates and comes in **Running** state.
     
     ```bash
     kubectl get pods -n test-domain-ns -w
     ```
     ![View Pods](images9/ViewPods.png)
 
-4. To Verify that Admin Server and Managed Server pods are using updated WebLogic Server image, click **Monitoring Tree** icon and then select **Running Servers** -> **admin-server**. You can see, it is using **12.2.1.4.0**.
+5. To Verify that Admin Server and Managed Server pods are using updated WebLogic Server image, click **Monitoring Tree** icon and then select **Running Servers** -> **admin-server**. You can see, it is using **12.2.1.4.0**.
     ![WebLogic Version](images9/78.png)
 
 <!-- 
